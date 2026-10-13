@@ -3,14 +3,18 @@ if status is-interactive
 end
 set fish_greeting
 alias v="nvim"
-alias hx="helix"
 
-export EDITOR="helix"
+export EDITOR="hx"
 export SHELL="/bin/fish"
 
 function fish_mode_prompt
 end
 export TERM="xterm-256color"
 fish_vi_key_bindings
-alias gittree="git log --all --topo-order --graph --show-signature"
+alias gt="git log --all --topo-order --graph --show-signature"
+alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit"
+alias gs="git status"
+alias gd="git diff"
 fzf --fish | source

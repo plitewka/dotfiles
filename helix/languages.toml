@@ -34,3 +34,5 @@ command = "ruff-lsp"
 
 [language-server.ruff.config]
 settings = {args = []}
+
+
