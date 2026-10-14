@@ -5,3 +5,6 @@ normal = "block"
 select = "underline"
 [editor.soft-wrap]
 enable = true
+
+[keys.normal.space.space]
+b = [":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"]
