@@ -1,0 +1,6 @@
+flatpak override --user --unset-env=WAYLAND_DISPLAY --nosocket=wayland --nosocket=fallback-x11 --socket=x11 com.spotify.Client
+
+to ~/.var/app/com.spotify.Client/config/spotify-flags.conf
+add: 
+--ozone-platform=x11
+--disable-features=UseOzonePlatform
