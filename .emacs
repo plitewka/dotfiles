@@ -98,5 +98,17 @@
 
 (load custom-file)
 
-; Disable the annoying warning
+; ORG
+(use-package org-present)
+(use-package org-modern)
+(use-package org-present)
+(use-package org-tree-slide)
+
+; Diskable the annoying warning
 (add-to-list 'warning-suppress-types '(files missing-lexbind-cookie))
+
+; Dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
