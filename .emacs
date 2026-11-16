@@ -121,3 +121,15 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook))
+
+; Which key
+(use-package which-key
+  :config
+  (which-key-mode 1))
+
+; Projectile
+(use-package projectile
+    :diminish projectile-mode
+    :init
+    (setq projectile-keymap-prefix (kbd "C-c p"))
+    )
