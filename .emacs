@@ -33,12 +33,12 @@
 (setq inhibit-startup-screen t)
 
 ; LSP 
-(use-package lsp-mode)
+(use-package lsp-mode
+    :bind-keymap ("C-c l" . lsp-command-map)
+  )
 (use-package lsp-ui)
 (use-package company)
 (use-package corfu)
-
-(setq lsp-keymap-prefix "C-c l")
 
 ; IDO
 (use-package ido-completing-read+)
@@ -97,14 +97,23 @@
 (add-hook 'c-or-c++-mode-hook #'lsp)
 
 (load custom-file)
+;; Vue + TypeScript + Tailwind works out of the box
+(use-package eglot-typescript-preset
+  :ensure t)
 
+;; To also add ESLint and oxlint for Vue files:
+(use-package eglot-typescript-preset
+  :ensure t
+  :custom
+  (eglot-typescript-preset-vue-rass-tools
+   '(vue-language-server typescript-language-server eslint oxlint tailwindcss-language-server)))
 ; ORG
 (use-package org-present)
 (use-package org-modern)
 (use-package org-present)
 (use-package org-tree-slide)
 
-; Diskable the annoying warning
+; Disable the annoying warning
 (add-to-list 'warning-suppress-types '(files missing-lexbind-cookie))
 
 ; Dashboard
