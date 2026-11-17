@@ -43,10 +43,11 @@
 ; IDO
 (use-package ido-completing-read+)
 (use-package smex)
+(use-package ido-vertical-mode)
 
 (setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
 (ido-mode 1)
+(ido-vertical-mode 1)
 
 (ido-ubiquitous-mode 1)
 (global-set-key (kbd "M-x") 'smex)
@@ -113,6 +114,17 @@
 (use-package org-present)
 (use-package org-tree-slide)
 
+(with-eval-after-load 'org-tree-slide
+  (add-hook 'org-tree-slide-play-hook #'org-display-inline-images)
+  (add-hook 'org-tree-slide-after-narrow-hook #'org-display-inline-images))
+
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
+  (setq org-confirm-babel-evaluate nil      ; don't ask y/n for each block
+        org-image-actual-width nil))        ; respect #+ATTR_ORG :width
+
 ; Disable the annoying warning
 (add-to-list 'warning-suppress-types '(files missing-lexbind-cookie))
 
@@ -133,3 +145,4 @@
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     )
+(use-package projectile-ripgrep)
