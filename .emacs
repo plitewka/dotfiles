@@ -47,6 +47,7 @@
 
 (setq ido-enable-flex-matching t)
 (ido-mode 1)
+(setq ido-everywhere t)
 (ido-vertical-mode 1)
 
 (ido-ubiquitous-mode 1)
@@ -97,7 +98,11 @@
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'c-or-c++-mode-hook #'lsp)
 
+; Python
+(add-hook 'python-mode-hook #'lsp-deferred)
+
 (load custom-file)
+
 ;; Vue + TypeScript + Tailwind works out of the box
 (use-package eglot-typescript-preset
   :ensure t)
@@ -108,6 +113,7 @@
   :custom
   (eglot-typescript-preset-vue-rass-tools
    '(vue-language-server typescript-language-server eslint oxlint tailwindcss-language-server)))
+
 ; ORG
 (use-package org-present)
 (use-package org-modern)
@@ -146,3 +152,17 @@
     (setq projectile-keymap-prefix (kbd "C-c p"))
     )
 (use-package projectile-ripgrep)
+
+; Vterm
+(use-package vterm
+  :ensure t
+  :config
+  (setq vterm-shell (executable-find "fish")))
+
+; Java
+(use-package lsp-java)
+(add-hook 'java-mode-hook #'lsp)
+
+; Expand region
+(use-package expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
