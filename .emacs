@@ -16,8 +16,11 @@
 
 ; Theme
 (use-package gruber-darker-theme)
+(use-package molokai-theme)
+(use-package color-theme-sanityinc-tomorrow)
 (setq custom-safe-themes t)
-(load-theme 'gruber-darker)
+
+(load-theme 'sanityinc-tomorrow-night)
 (setq custom-safe-themes nil)
 
 ; Window settings
@@ -166,3 +169,9 @@
 ; Expand region
 (use-package expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+; Ultra scroll
+(use-package ultra-scroll
+    :config
+  (ultra-scroll-mode 1))
+
