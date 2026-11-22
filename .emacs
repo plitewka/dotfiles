@@ -18,9 +18,13 @@
 (use-package gruber-darker-theme)
 (use-package molokai-theme)
 (use-package color-theme-sanityinc-tomorrow)
-(setq custom-safe-themes t)
+(use-package vscode-dark-plus-theme
+  :ensure t
+  )
+(use-package doom-themes)
 
-(load-theme 'sanityinc-tomorrow-night)
+(setq custom-safe-themes t)
+(load-theme 'doom-tomorrow-night)
 (setq custom-safe-themes nil)
 
 ; Window settings
@@ -31,17 +35,54 @@
 
 ; Editor settings
 (global-display-line-numbers-mode 1)
-(setq column-number-mode t)
+(setq display-line-numbers-type 'relative)
 
 (setq inhibit-startup-screen t)
 
-; LSP 
+; LSP
 (use-package lsp-mode
     :bind-keymap ("C-c l" . lsp-command-map)
   )
 (use-package lsp-ui)
 (use-package company)
 (use-package corfu)
+
+;; Java
+(use-package lsp-java)
+(add-hook 'java-mode-hook #'lsp)
+
+;; C/C++
+(defun my-c-mode-common-hook ()
+ (c-set-offset 'substatement-open 0)
+ (setq c++-tab-always-indent t)
+ (setq c-basic-offset 4)                  ;; Default is 2
+ (setq c-indent-level 4)                  ;; Default is 2
+
+ (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
+ (setq tab-width 4)
+
+ )
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(add-hook 'c-mode-hook #'lsp)
+(add-hook 'c++-mode-hook #'lsp)
+(add-hook 'c-or-c++-mode-hook #'lsp)
+
+;; Python
+(add-hook 'python-mode-hook #'lsp-deferred)
+
+(load custom-file)
+
+;; Vue + TypeScript + Tailwind works out of the box
+(use-package eglot-typescript-preset
+  :ensure t)
+
+;; To also add ESLint and oxlint for Vue files:
+(use-package eglot-typescript-preset
+  :ensure t
+  :custom
+  (eglot-typescript-preset-vue-rass-tools
+   '(vue-language-server typescript-language-server eslint oxlint tailwindcss-language-server)))
 
 ; IDO
 (use-package ido-completing-read+)
@@ -83,39 +124,6 @@
                         cua-scroll-down
                         cua-scroll-up))
           (ding))))
-
-; C/C++
-(defun my-c-mode-common-hook ()
- (c-set-offset 'substatement-open 0)
- (setq c++-tab-always-indent t)
- (setq c-basic-offset 4)                  ;; Default is 2
- (setq c-indent-level 4)                  ;; Default is 2
-
- (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
- (setq tab-width 4)
-
- )
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-hook 'c-mode-hook #'lsp)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'c-or-c++-mode-hook #'lsp)
-
-; Python
-(add-hook 'python-mode-hook #'lsp-deferred)
-
-(load custom-file)
-
-;; Vue + TypeScript + Tailwind works out of the box
-(use-package eglot-typescript-preset
-  :ensure t)
-
-;; To also add ESLint and oxlint for Vue files:
-(use-package eglot-typescript-preset
-  :ensure t
-  :custom
-  (eglot-typescript-preset-vue-rass-tools
-   '(vue-language-server typescript-language-server eslint oxlint tailwindcss-language-server)))
 
 ; ORG
 (use-package org-present)
@@ -162,10 +170,6 @@
   :config
   (setq vterm-shell (executable-find "fish")))
 
-; Java
-(use-package lsp-java)
-(add-hook 'java-mode-hook #'lsp)
-
 ; Expand region
 (use-package expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -175,3 +179,5 @@
     :config
   (ultra-scroll-mode 1))
 
+; Tabs
+(setq-default indent-tabs-mode nil)
