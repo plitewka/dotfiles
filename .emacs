@@ -33,6 +33,10 @@
 (scroll-bar-mode -1)
 (setq default-frame-alist '((undecorated . t)))
 
+; Fonts
+(set-frame-font "Noto Sans Mono" nil t)
+(set-face-attribute 'default nil :height 113)
+
 ; Editor settings
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
